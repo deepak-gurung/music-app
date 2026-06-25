@@ -4,11 +4,11 @@ import musicImg from "../assets/musicanim.webp";
 import { IoPlay } from "react-icons/io5";
 import { CgPlayTrackNext, CgPlayTrackPrev } from "react-icons/cg";
 import { datacontext } from "../context/UserContext";
+import { MdOutlinePause } from "react-icons/md";
 
 const Home = () => {
-
-  const {audioRef} = useContext(datacontext)
-  console.log(audioRef)
+  const { audioRef, playingSong, playSong, pauseSong } =
+    useContext(datacontext);
 
   return (
     <div className="w-full h-screen bg-black flex ">
@@ -33,9 +33,22 @@ const Home = () => {
         </div>
         <div className="flex items-center justify-center gap-5 text-white">
           <CgPlayTrackPrev className="w-[28px] h-[28px] cursor-pointer hover:text-gray-500" />
-          <div className="w-[40px] h-[40px] rounded-full bg-white text-black hover:bg-gray-500 cursor-pointer flex justify-center items-center transition-all">
-            <IoPlay className="w-[20px] h-[20px]"  />
-          </div>
+          {!playingSong ? (
+            <div
+              onClick={() => playSong()}
+              className="w-[40px] h-[40px] rounded-full bg-white text-black hover:bg-gray-500 cursor-pointer flex justify-center items-center transition-all"
+            >
+              <IoPlay className="w-[20px] h-[20px]" />
+            </div>
+          ) : (
+            <div
+              onClick={() => pauseSong()}
+              className="w-[40px] h-[40px] rounded-full bg-white text-black hover:bg-gray-500 cursor-pointer flex justify-center items-center transition-all"
+            >
+              <MdOutlinePause className="w-[20px] h-[20px]" />
+            </div>
+          )}
+
           <CgPlayTrackNext className="w-[28px] h-[28px] cursor-pointer hover:text-gray-500" />
         </div>
       </div>
