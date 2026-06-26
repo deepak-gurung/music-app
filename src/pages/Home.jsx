@@ -7,32 +7,32 @@ import { datacontext } from "../context/UserContext";
 import { MdOutlinePause } from "react-icons/md";
 
 const Home = () => {
-  const { audioRef, playingSong, playSong, pauseSong } =
+  const { audioRef, playingSong, playSong, pauseSong,prevSong,nextSong,index, setIndex} =
     useContext(datacontext);
 
   return (
     <div className="w-full h-screen bg-black flex ">
       <div className="w-full md:w-[50%] h-full pt-[20px] md:pt-[120px] flex flex-col items-center gap-5">
         <h1 className="text-white font-semibold text-[18px]">Now Playing</h1>
-        <div className="rounded-sm w-[80%] md:w-[200px] object-fill overflow-hidden relative">
-          <img src={songsData[0].image} alt="" />
+        <div className="rounded-sm w-[80%] md:w-[200px] h-[220px] object-fill overflow-hidden relative">
+          <img src={songsData[index].image} alt="" className="w-[100%] h-[100%]" />
           <div className="w-full h-full bg-black absolute top-0 opacity-[0.5] flex items-center justify-center">
             <img src={musicImg} className="w-[50%]" alt="" />
           </div>
         </div>
         <div className="flex flex-col items-center">
           <div className="text-white font-bold text-[30px]">
-            {songsData[0].name}
+            {songsData[index].name}
           </div>
           <div className="text-gray-700 font-semibold text-[18px]">
-            {songsData[0].singer}
+            {songsData[index].singer}
           </div>
         </div>
         <div className="w-full flex items-center justify-center">
           <input type="range" id="range" />
         </div>
         <div className="flex items-center justify-center gap-5 text-white">
-          <CgPlayTrackPrev className="w-[28px] h-[28px] cursor-pointer hover:text-gray-500" />
+          <CgPlayTrackPrev onClick={()=>prevSong()} className="w-[28px] h-[28px] cursor-pointer hover:text-gray-500" />
           {!playingSong ? (
             <div
               onClick={() => playSong()}
@@ -49,7 +49,7 @@ const Home = () => {
             </div>
           )}
 
-          <CgPlayTrackNext className="w-[28px] h-[28px] cursor-pointer hover:text-gray-500" />
+          <CgPlayTrackNext onClick={()=>nextSong()} className="w-[28px] h-[28px] cursor-pointer hover:text-gray-500" />
         </div>
       </div>
       <div className="w-[50%] h-full hidden md:block bg-amber-950"></div>
